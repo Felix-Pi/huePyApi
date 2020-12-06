@@ -84,6 +84,23 @@ class Hue:
         light = self.get(self.lights_url + '/' + str(light_id), '')
         return self.parseLight(light_id, light)
 
+    # scenes
+    def parseScene(self, scene_id, scene):
+        print(scene)
+        name = scene['name']
+
+        group = None
+        if 'group' in scene:
+            group = scene['group']
+
+        lights = scene['lights']
+
+        lightstates = None
+        if 'lightstates' in scene:
+            bri = scene['lightstates']
+
+        return Scene(self, scene_id, name, group, lights, lightstates)
+
     def getAllScenes(self):
         raise NotImplementedError("Not implemented yet!")
 
