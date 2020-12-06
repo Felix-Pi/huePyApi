@@ -32,3 +32,10 @@ class Group:
     def setAlert(self, alert):
         state = json.dumps({"alert": alert})
         self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+
+    def setScene(self, scene):
+        self.setSceneById(scene.scene_id)
+
+    def setSceneById(self, scene_id):
+        state = json.dumps({"scene": scene_id})
+        self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
