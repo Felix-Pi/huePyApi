@@ -25,3 +25,7 @@ class TestGroup(TestCase):
     def test_group_set_alert(self):
         group = self.hue.getGroup(1)
         group.setAlert('select')
+
+    def test_group_set_scene(self):
+        scenes = self.hue.getSceneByGroupId(1)
+        self.hue.getGroup(1).setScene(scenes[1])
