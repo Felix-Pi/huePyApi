@@ -16,6 +16,7 @@ class Hue:
         self.lights_url = 'lights'
         self.scenes_url = 'scenes'
 
+    # requests
     def validate_request(self, req):
         req_json = req.json()
         # print('validate_request', req.json())
@@ -41,6 +42,7 @@ class Hue:
         self.validate_request(req)
         return req.json()
 
+    # groups
     def getAllGroups(self):
         groups = self.get(self.groups_url, '')
         return [self.parseGroup(group_id, groups[group_id]) for group_id in groups]
@@ -62,6 +64,7 @@ class Hue:
 
         return Group(self, group_id, name, lights, on, bri, ct, alert)
 
+    # lights
     def parseLight(self, light_id, light):
         print(light)
         name = light['name']
@@ -102,7 +105,15 @@ class Hue:
         return Scene(self, scene_id, name, group, lights, lightstates)
 
     def getAllScenes(self):
-        raise NotImplementedError("Not implemented yet!")
+        scenes = self.get(self.scenes_url, '')
+        return [self.parseScene(scene_id, scenes[scene_id]) for scene_id in scenes]
 
-    def getScene(self, group_id):
-        raise NotImplementedError("Not implemented yet!")
+    def getScene(self, scene_id):
+        scene = self.get(self.scenes_url + str(scene_id), '')
+        return self.parseScene(scene_id, scene)
+
+    def getSceneByGroupId(self, group_id):
+        scenes = self.getAllScenes()
+
+        return [scene for scene in scenes if scene.group is not None and scene.group == str(group_id)]
+
