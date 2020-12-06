@@ -63,7 +63,7 @@ class Hue:
         return Group(self, group_id, name, lights, on, bri, ct, alert)
 
     def parseLight(self, light_id, light):
-        # print(light)
+        print(light)
         name = light['name']
         on = light['state']['on']
         bri = None
