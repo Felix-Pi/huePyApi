@@ -1,13 +1,14 @@
-import json
-
 from config import ip, api_key
 
+from Group import Group
+from Light import Light
+from Scene import Scene
+
 import requests
-import time
 
 
 class Hue:
-    def __init__(self, ip, api_key, notification=False):
+    def __init__(self, ip, api_key):
         self.ip = ip
         self.api_key = api_key
         self.api_url = 'http://' + self.ip + '/api/' + self.api_key
@@ -62,10 +63,12 @@ class Hue:
         return Group(self, group_id, name, lights, on, bri, ct, alert)
 
     def parseLight(self, light_id, light):
-        print(light)
+        # print(light)
         name = light['name']
         on = light['state']['on']
-        bri = light['state']['bri']
+        bri = None
+        if 'bri' in light['state']:
+            bri = light['state']['bri']
         ct = None
         if 'ct' in light['state']:
             ct = light['state']['ct']
@@ -77,82 +80,12 @@ class Hue:
         lights = self.get(self.lights_url, '')
         return [self.parseLight(light_id, lights[light_id]) for light_id in lights]
 
-    def getLight(self, group_id):
-        raise NotImplementedError("Not implemented yet!")
+    def getLight(self, light_id):
+        light = self.get(self.lights_url + '/' + str(light_id), '')
+        return self.parseLight(light_id, light)
 
     def getAllScenes(self):
         raise NotImplementedError("Not implemented yet!")
 
     def getScene(self, group_id):
         raise NotImplementedError("Not implemented yet!")
-
-
-class Group:
-    def __init__(self, hue, group_id, name, lights, on, bri, ct, alert):
-        self.hue = hue
-        self.group_id = group_id
-        self.name = name
-        self.lights = lights
-        self.on = on
-        self.bri = bri
-        self.ct = ct
-        self.alert = alert
-
-    def __repr__(self):
-        return 'Group(id={}, lights={}, on={}, bri={}, ct={}, alert={})'.format(self.group_id, self.lights, self.on,
-                                                                                self.bri,
-                                                                                self.ct,
-                                                                                self.alert)
-
-    def getLights(self):
-        raise NotImplementedError("Not implemented yet!")
-
-    def setOn(self, state=True):
-        state = json.dumps({"on": state})
-        self.hue.put(self.hue.groups_url + '/' + str(self.id) + '/action', state)
-
-    def setBri(self, bri):
-        state = json.dumps({"bri": bri})
-        self.hue.put(self.hue.groups_url + '/' + str(self.id) + '/action', state)
-
-    def setAlert(self, alert):
-        state = json.dumps({"alert": alert})
-        self.hue.put(self.hue.groups_url + '/' + str(self.id) + '/action', state)
-
-
-
-class Light:
-    def __init__(self, hue, light_id, name, on, bri, ct, alert):
-        self.hue = hue
-        self.light_id = light_id
-        self.name = name
-        self.on = on
-        self.bri = bri
-        self.ct = ct
-        self.alert = alert
-
-    def __repr__(self):
-        return 'Light(id={}, on={}, bri={}, ct={}, alert={})'.format(self.light_id, self.on, self.bri,
-                                                                                self.ct,
-                                                                                self.alert)
-
-    def getLights(self):
-        raise NotImplementedError("Not implemented yet!")
-
-    def setOn(self):
-        raise NotImplementedError("Not implemented yet!")
-
-    def setBri(self):
-        raise NotImplementedError("Not implemented yet!")
-
-    def setAlert(self):
-        raise NotImplementedError("Not implemented yet!")
-
-
-class Scene:
-    def __init__(self, id, name, group, lights, lightstates):
-        self.id = id
-        self.name = name
-        self.on = group
-        self.bri = lights
-        self.ct = lightstates

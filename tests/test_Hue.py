@@ -23,7 +23,7 @@ class TestHue(TestCase):
 
     def test_group_set_bri(self):
         group = self.hue.getGroup(1)
-        group.setBri(500)
+        group.setBri(355)
 
     def test_group_set_alert(self):
         group = self.hue.getGroup(1)
@@ -34,18 +34,18 @@ class TestHue(TestCase):
         lights = self.hue.getAllLights()
         print(lights)
 
-    def test_get_group(self):
-        group = self.hue.getGroup(1)
-        print(group)
+    def test_get_light(self):
+        light = self.hue.getLight(26)
+        print(light)
 
     def test_light_set_on(self):
-        group = self.hue.getGroup(1)
-        group.setOn(True)
+        light = self.hue.getLight(26)
+        light.setOn(True)
 
     def test_light_set_bri(self):
-        group = self.hue.getGroup(1)
-        group.setBri(500)
+        light = self.hue.getLight(26)
+        light.setBri(255)
 
     def test_lights_set_alert(self):
-        group = self.hue.getGroup(1)
-        group.setAlert('select')
+        light = self.hue.getLight(26)
+        light.setAlert('select')
