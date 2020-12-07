@@ -12,6 +12,30 @@ ip = ''
 api_key = ''
 ```
 
+## ToDo
+**Testing** \
+[ ] more testing, exceptions \
+[ ] requests: error messages -> https://developers.meethue.com/develop/hue-api/error-messages/
+[ ] requests http 
+
+**Functions** \
+[ ] change colors \
+[ ] register new user / api key \
+[ ] sensors, rules, schedules \
+[ ] capabilities
+[ ] read temperature from sensor \
+
+** Resourcelinks** \
+links: [Lights, Sensors, Groups, Scenes, Rules, Schedules, ResourceLinks]
+
+**Other** \
+[ ] maybe a GUI \
+
+[ ] ToDo \
+[ ] ToDo
+
+
+
 ## Usage
 ### Hue
 ```python
@@ -29,7 +53,8 @@ group = hue.getGroup(<group_id>)     # returns group with id group_id
 
 group.setOn(<state>)                 # (''| True) = on, False = off
 group.setBri(<brightness>)           # set brightness to value between 1 and 254
-group.setAlert(Alert.LSELECT)        # alert effect, (Alert.NONE|Alert.SELECT|Alert.LSELECT)
+group.setCli(<color temp>)           # set color temperature to value between 153 and 500
+group.setAlert(Alert.LSELECT)        # alert effect (Alert.NONE|Alert.SELECT|Alert.LSELECT)
 
 group_scenes = hue.getScenesForGroup(group)     # returns scenes associated with group
 group.setScene(group_scenes[0])                 # sets scene group_scenes[0] in group
@@ -42,7 +67,8 @@ light = hue.getLight(light_id)      # returns group with id group_id
 
 light.setOn(<state>)                # (''| True) = on, False = off
 light.setBri(<brightness>)          # set brightness to value between 1 and 254
-light.setAlert(Alert.SELECT)        # alert effect, (Alert.NONE|Alert.SELECT|Alert.LSELECT)
+light.setCli(<color temp>)          # set color temperature to value between 153 and 500
+light.setAlert(Alert.SELECT)        # alert effect (Alert.NONE|Alert.SELECT|Alert.LSELECT)
 ```
 
 ### Scenes
@@ -60,5 +86,7 @@ resourcelink.getLinkedScenes()       # returns linked scenes
 resourcelink.getLinkedRules()        # returns linked rules
 resourcelink.getLinkedSensors()      # returns linked sensors
 resourcelink.getLinkedGroups()       # returns linked groups
-
 ```
+
+## Credits
+* hue api docs ([Hue API](https://developers.meethue.com/develop/hue-api/lights-api/))
