@@ -7,7 +7,7 @@
 ## Configuration
 
 #### manually (config.py)
-```
+```python
 ip = ''
 api_key = ''
 ```
@@ -15,7 +15,7 @@ api_key = ''
 ## ToDo
 **Testing** \
 [ ] more testing, exceptions \
-[ ] requests: error messages -> https://developers.meethue.com/develop/hue-api/error-messages/
+[ ] requests: error messages -> https://developers.meethue.com/develop/hue-api/error-messages/ \
 [ ] requests http 
 
 **Functions** \
@@ -25,14 +25,11 @@ api_key = ''
 [ ] capabilities
 [ ] read temperature from sensor \
 
-** Resourcelinks** \
+**Resourcelinks** \
 links: [Lights, Sensors, Groups, Scenes, Rules, Schedules, ResourceLinks]
 
 **Other** \
-[ ] maybe a GUI \
-
-[ ] ToDo \
-[ ] ToDo
+[ ] maybe a GUI
 
 
 
