@@ -10,7 +10,7 @@ class TestHue(TestCase):
 
     # requests
     def test_get_groups(self):
-        res = self.hue.get(self.hue.groups_url + '/')
+        res = self.hue.get(self.hue.groups_url + '/', '')
         print(res)
 
     # groups

@@ -3,10 +3,6 @@ from huePyApi.Light import Light
 from huePyApi.Scene import Scene
 from huePyApi.Resourcelink import Resourcelink
 
-from huePyApi.enums.Alert import *
-from huePyApi.enums.Bri import *
-from huePyApi.enums.Ct import *
-
 import requests
 
 

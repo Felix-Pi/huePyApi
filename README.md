@@ -2,7 +2,7 @@
 > Python module for controlling Philips Hue lights, groups, scenes and sensors by using the Hue rest API
 
 ### Installation
- `python3 -m pip install git+https://github.com/Felix-Pi/huePyApi`
+ `pip install git+https://github.com/Felix-Pi/huePyApi`
 
 ## Configuration
 
@@ -24,7 +24,6 @@ api_key = ''
 [ ] sensors, rules, schedules \
 [ ] capabilities
 [ ] read temperature from sensor \
-[ ] add blink(reps)
 
 **Resourcelinks** \
 links: [Lights, Sensors, Groups, Scenes, Rules, Schedules, ResourceLinks]
@@ -37,10 +36,10 @@ links: [Lights, Sensors, Groups, Scenes, Rules, Schedules, ResourceLinks]
 ## Usage
 ### Hue
 ```python
-import huePyApi.Hue as hpi
+from huePyApi import Hue
 from config import ip, api_key
 
-hue = hpi.Hue(ip=ip, api_key=api_key)
+hue = Hue.Hue(ip=ip, api_key=api_key)
 ```
 
 ### Groups
