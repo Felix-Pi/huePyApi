@@ -2,6 +2,7 @@ from Group import Group
 from Light import Light
 from Scene import Scene
 from Resourcelink import Resourcelink
+from Alert import Alert
 
 import requests
 

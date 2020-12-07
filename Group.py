@@ -1,4 +1,5 @@
 import json
+from Alert import *
 
 
 class Group:
@@ -8,8 +9,15 @@ class Group:
         self.name = str(name)
         self.lights = lights
         self.on = bool(on)
-        self.bri = int(bri)
-        self.ct = int(ct)
+
+        self.bri = bri
+        if bri is not None:
+            self.bri = int(bri)
+
+        self.ct = ct
+        if ct is not None:
+            self.ct = int(ct)
+
         self.alert = str(alert)
 
     def __repr__(self):
@@ -23,19 +31,21 @@ class Group:
 
     def setOn(self, state=True):
         state = json.dumps({"on": state})
-        self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
 
     def setBri(self, bri):
+        if not 1 <= bri <= 254:
+            raise ValueError('bri must be int between 1 and 254')
         state = json.dumps({"bri": bri})
-        self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
 
     def setAlert(self, alert):
-        state = json.dumps({"alert": alert})
-        self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        if not isinstance(alert, Alert):
+            raise TypeError('alert must be an instance of Alert Enum')
+
+        state = json.dumps({"alert": alert.value})
+        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
 
     def setScene(self, scene):
-        self.setSceneById(scene.scene_id)
-
-    def setSceneById(self, scene_id):
-        state = json.dumps({"scene": scene_id})
-        self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        state = json.dumps({"scene": scene.scene_id})
+        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
