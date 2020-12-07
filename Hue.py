@@ -3,6 +3,7 @@ from config import ip, api_key
 from Group import Group
 from Light import Light
 from Scene import Scene
+from Resourcelink import Resourcelink
 
 import requests
 
@@ -15,6 +16,7 @@ class Hue:
         self.groups_url = 'groups'
         self.lights_url = 'lights'
         self.scenes_url = 'scenes'
+        self.resourcelink_url = 'resourcelinks'
 
     # requests
     def validate_request(self, req):
@@ -28,7 +30,7 @@ class Hue:
 
     def put(self, url_suffix, query):
         url = self.api_url + '/' + url_suffix
-        print(url, query)
+        print('put:', url, query)
         req = requests.put(url, data=query)
 
         self.validate_request(req)
@@ -36,7 +38,7 @@ class Hue:
 
     def get(self, url_suffix, query):
         url = self.api_url + '/' + url_suffix
-        print(url, query)
+        print('get: ', url, query)
         req = requests.get(url, query)
 
         self.validate_request(req)
@@ -66,7 +68,7 @@ class Hue:
 
     # lights
     def parseLight(self, light_id, light):
-        print(light)
+        print('parseLight:', light)
         name = light['name']
         on = light['state']['on']
         bri = None
@@ -89,7 +91,7 @@ class Hue:
 
     # scenes
     def parseScene(self, scene_id, scene):
-        print(scene)
+        print('parseScene:', scene)
         name = scene['name']
 
         group = None
@@ -97,10 +99,9 @@ class Hue:
             group = scene['group']
 
         lights = scene['lights']
-
         lightstates = None
         if 'lightstates' in scene:
-            bri = scene['lightstates']
+            lightstates = scene['lightstates']
 
         return Scene(self, scene_id, name, group, lights, lightstates)
 
@@ -109,11 +110,32 @@ class Hue:
         return [self.parseScene(scene_id, scenes[scene_id]) for scene_id in scenes]
 
     def getScene(self, scene_id):
-        scene = self.get(self.scenes_url + str(scene_id), '')
+        scene = self.get(self.scenes_url + '/' + str(scene_id), '')
         return self.parseScene(scene_id, scene)
 
-    def getSceneByGroupId(self, group_id):
+    def getScenesForGroupId(self, group_id):
         scenes = self.getAllScenes()
 
         return [scene for scene in scenes if scene.group is not None and scene.group == str(group_id)]
 
+    # resourcelinks
+    # (self, hue, rl_id, classid, description, name, links):
+    def parseResourcelink(self, rl_id, resourcelink):
+        print('parseResourcelink:', resourcelink)
+        classid = resourcelink['classid']
+        description = resourcelink['description']
+        name = resourcelink['name']
+
+        links = None
+        if 'links' in resourcelink:
+            links = resourcelink['links']
+
+        return Resourcelink(self, rl_id, classid, description, name, links)
+
+    def getAllResourcelinks(self):
+        resourcelinks = self.get(self.resourcelink_url, '')
+        return [self.parseResourcelink(rl_id, resourcelinks[rl_id]) for rl_id in resourcelinks]
+
+    def getResourcelink(self, rl_id):
+        resourcelink = self.get(self.resourcelink_url + '/' + str(rl_id), '')
+        return self.parseResourcelink(rl_id, resourcelink)
