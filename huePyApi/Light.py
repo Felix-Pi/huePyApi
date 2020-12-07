@@ -1,5 +1,4 @@
 import json
-from huePyApi.enums import *
 from huePyApi.enums.Alert import *
 from huePyApi.enums.Bri import *
 from huePyApi.enums.Ct import *
