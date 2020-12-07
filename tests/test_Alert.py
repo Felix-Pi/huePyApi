@@ -1,5 +1,5 @@
 from unittest import TestCase
-from Alert import *
+from huePyApi.enums.Alert import *
 
 
 class TestAlert(TestCase):

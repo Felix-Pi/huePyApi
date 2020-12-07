@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from config import ip, api_key
-from Hue import *
+from huePyApi.config import ip, api_key
+from huePyApi.Hue import *
 
 
 class TestHue(TestCase):

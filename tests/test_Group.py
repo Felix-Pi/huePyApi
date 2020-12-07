@@ -1,8 +1,10 @@
 from unittest import TestCase
 
-from config import ip, api_key
-from Hue import *
-
+from huePyApi.config import ip, api_key
+from huePyApi.Hue import *
+from huePyApi.enums.Alert import *
+from huePyApi.enums.Bri import *
+from huePyApi.enums.Ct import *
 
 class TestGroup(TestCase):
     def setUp(self):
@@ -16,11 +18,22 @@ class TestGroup(TestCase):
         group = self.hue.getGroup(1)
 
         with self.assertRaises(Exception) as context:
-            group.setBri(355)
+            group.setBri(int(Bri.MAX.value + 1))
+
+        print(context.exception)
+        self.assertTrue(isinstance(context.exception, ValueError))
+
+        group.setBri(Bri.MAX.value)
+
+    def test_group_set_ct(self):
+        group = self.hue.getGroup(1)
+
+        with self.assertRaises(Exception) as context:
+            group.setCt(int(Ct.MAX.value + 1))
 
         self.assertTrue(isinstance(context.exception, ValueError))
 
-        group.setBri(254)
+        group.setCt(200)
 
     def test_group_set_alert(self):
         group = self.hue.getGroup(1)
