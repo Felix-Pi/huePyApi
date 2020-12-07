@@ -1,5 +1,7 @@
 import json
-from Alert import *
+from huePyApi.enums.Alert import *
+from huePyApi.enums.Bri import *
+from huePyApi.enums.Ct import *
 
 
 class Group:
@@ -31,21 +33,28 @@ class Group:
 
     def setOn(self, state=True):
         state = json.dumps({"on": state})
-        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        return self.hue.put(self.hue.groups_url + '/' + self.group_id + '/action', state)
 
     def setBri(self, bri):
-        if not 1 <= bri <= 254:
-            raise ValueError('bri must be int between 1 and 254')
+        if not Bri.MIN.value <= bri <= Bri.MAX.value:
+            raise ValueError('bri must be int between ' + str(Bri.MIN.value) + ' and ' + str(Bri.MAX.value))
         state = json.dumps({"bri": bri})
-        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        return self.hue.put(self.hue.groups_url + '/' + self.group_id + '/action', state)
+
+    def setCt(self, ct):
+        if not Ct.MIN.value <= ct <= Ct.MAX.value:
+            raise ValueError('ct must be int between ' + str(Ct.MIN.value) + ' and ' + str(Ct.MAX.value))
+
+        state = json.dumps({"ct": ct})
+        return self.hue.put(self.hue.groups_url + '/' + self.group_id + '/action', state)
 
     def setAlert(self, alert):
         if not isinstance(alert, Alert):
             raise TypeError('alert must be an instance of Alert Enum')
 
         state = json.dumps({"alert": alert.value})
-        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        return self.hue.put(self.hue.groups_url + '/' + self.group_id + '/action', state)
 
     def setScene(self, scene):
         state = json.dumps({"scene": scene.scene_id})
-        return self.hue.put(self.hue.groups_url + '/' + str(self.group_id) + '/action', state)
+        return self.hue.put(self.hue.groups_url + '/' + self.group_id + '/action', state)

@@ -1,3 +1,3 @@
 venv/
 .idea/
-config.py
+huePyApi/config.py

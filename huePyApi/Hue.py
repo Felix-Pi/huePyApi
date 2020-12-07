@@ -1,8 +1,7 @@
-from Group import Group
-from Light import Light
-from Scene import Scene
-from Resourcelink import Resourcelink
-from Alert import Alert
+from huePyApi.Group import Group
+from huePyApi.Light import Light
+from huePyApi.Scene import Scene
+from huePyApi.Resourcelink import Resourcelink
 
 import requests
 
@@ -67,7 +66,7 @@ class Hue:
 
     # lights
     def parseLight(self, light_id, light):
-        print('parseLight:', light)
+       #print('parseLight:', light)
         name = light['name']
         on = light['state']['on']
         bri = None
@@ -90,7 +89,7 @@ class Hue:
 
     # scenes
     def parseScene(self, scene_id, scene):
-        print('parseScene:', scene)
+        #print('parseScene:', scene)
         name = scene['name']
 
         group = None
