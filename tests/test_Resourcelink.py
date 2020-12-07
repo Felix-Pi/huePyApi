@@ -17,11 +17,6 @@ class TestResourcelink(TestCase):
         print(scenes)
         assert scenes[0] == '7FQzspPLCTwjAsL'
 
-    def test_get_scenes_from_dimmer_switch(self):
-        scenes = self.hue.getResourcelink(5287).getLinkedScenes()
-        ['7FQzspPLCTwjAsL', 'im8gR8q5x', 'zGbHK7jJX0TpRkK', 'nya7J5WRbtT0XwP', 'U7xwqZM8lcV3fUU']
-        print(scenes)
-
     def test_get_linked_rules(self):
         rules = self.dummy_resourcelink.getLinkedRules()
         print(rules)

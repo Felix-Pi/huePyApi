@@ -14,12 +14,28 @@ class TestGroup(TestCase):
 
     def test_group_set_bri(self):
         group = self.hue.getGroup(1)
-        group.setBri(355)
+
+        with self.assertRaises(Exception) as context:
+            group.setBri(355)
+
+        self.assertTrue(isinstance(context.exception, ValueError))
+
+        group.setBri(254)
 
     def test_group_set_alert(self):
         group = self.hue.getGroup(1)
-        group.setAlert('select')
+        group.setAlert(Alert.SELECT)
+
+    def test_group_set_alert_wrong_parameter(self):
+        group = self.hue.getGroup(1)
+
+        with self.assertRaises(Exception) as context:
+            group.setAlert('select')
+
+        self.assertTrue(isinstance(context.exception, TypeError))
 
     def test_group_set_scene(self):
-        scenes = self.hue.getScenesForGroup(1)
-        self.hue.getGroup(1).setScene(scenes[1])
+        group = self.hue.getGroup(1)
+        scenes = self.hue.getScenesForGroup(group)
+
+        group.setScene(scenes[1])
