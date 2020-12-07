@@ -1,4 +1,6 @@
 from unittest import TestCase
+
+from config import ip, api_key
 from Hue import *
 
 
@@ -19,5 +21,5 @@ class TestGroup(TestCase):
         group.setAlert('select')
 
     def test_group_set_scene(self):
-        scenes = self.hue.getScenesForGroupId(1)
+        scenes = self.hue.getScenesForGroup(1)
         self.hue.getGroup(1).setScene(scenes[1])

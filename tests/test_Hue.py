@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from config import ip, api_key
 from Hue import *
 
 
@@ -40,8 +41,9 @@ class TestHue(TestCase):
         scene = self.hue.getScene('7FQzspPLCTwjAsL')
         print(scene)
 
-    def test_get_scenes_for_group_id(self):
-        scenes = self.hue.getScenesForGroupId(1)
+    def test_get_scenes_for_group(self):
+        group = self.hue.getGroup(1)
+        scenes = self.hue.getScenesForGroup(group)
         print(scenes)
 
     # resourcelinks

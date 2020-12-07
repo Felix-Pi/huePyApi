@@ -1,5 +1,3 @@
-from config import ip, api_key
-
 from Group import Group
 from Light import Light
 from Scene import Scene
@@ -113,10 +111,10 @@ class Hue:
         scene = self.get(self.scenes_url + '/' + str(scene_id), '')
         return self.parseScene(scene_id, scene)
 
-    def getScenesForGroupId(self, group_id):
+    def getScenesForGroup(self, group):
         scenes = self.getAllScenes()
 
-        return [scene for scene in scenes if scene.group is not None and scene.group == str(group_id)]
+        return [scene for scene in scenes if scene.group is not None and scene.group == group.group_id]
 
     # resourcelinks
     # (self, hue, rl_id, classid, description, name, links):
