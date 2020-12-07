@@ -28,7 +28,7 @@ class Hue:
 
     def put(self, url_suffix, query):
         url = self.api_url + '/' + url_suffix
-        print('put:', url, query)
+        #print('put:', url, query)
         req = requests.put(url, data=query)
 
         self.validate_request(req)
@@ -36,7 +36,7 @@ class Hue:
 
     def get(self, url_suffix, query):
         url = self.api_url + '/' + url_suffix
-        print('get: ', url, query)
+        #print('get: ', url, query)
         req = requests.get(url, query)
 
         self.validate_request(req)
@@ -117,9 +117,8 @@ class Hue:
         return [scene for scene in scenes if scene.group is not None and scene.group == group.group_id]
 
     # resourcelinks
-    # (self, hue, rl_id, classid, description, name, links):
     def parseResourcelink(self, rl_id, resourcelink):
-        print('parseResourcelink:', resourcelink)
+        #print('parseResourcelink:', resourcelink)
         classid = resourcelink['classid']
         description = resourcelink['description']
         name = resourcelink['name']
