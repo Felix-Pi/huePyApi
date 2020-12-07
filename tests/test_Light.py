@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from huePyApi.config import ip, api_key
+from config import ip, api_key
 from huePyApi.Hue import *
 from huePyApi.enums.Alert import *
 from huePyApi.enums.Bri import *
