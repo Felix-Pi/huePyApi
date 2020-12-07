@@ -4,12 +4,12 @@ import json
 class Light:
     def __init__(self, hue, light_id, name, on, bri, ct, alert):
         self.hue = hue
-        self.light_id = light_id
-        self.name = name
-        self.on = on
-        self.bri = bri
-        self.ct = ct
-        self.alert = alert
+        self.light_id = str(light_id)
+        self.name = str(name)
+        self.on = bool(on)
+        self.bri = int(bri)
+        self.ct = int(ct)
+        self.alert = str(alert)
 
     def __repr__(self):
         return 'Light(id={}, on={}, bri={}, ct={}, alert={})'.format(self.light_id, self.on, self.bri,

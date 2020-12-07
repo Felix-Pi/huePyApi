@@ -4,13 +4,13 @@ import json
 class Group:
     def __init__(self, hue, group_id, name, lights, on, bri, ct, alert):
         self.hue = hue
-        self.group_id = group_id
-        self.name = name
+        self.group_id = str(group_id)
+        self.name = str(name)
         self.lights = lights
-        self.on = on
-        self.bri = bri
-        self.ct = ct
-        self.alert = alert
+        self.on = bool(on)
+        self.bri = int(bri)
+        self.ct = int(ct)
+        self.alert = str(alert)
 
     def __repr__(self):
         return 'Group(id={}, lights={}, on={}, bri={}, ct={}, alert={})'.format(self.group_id, self.lights, self.on,

@@ -1,4 +1,6 @@
 from unittest import TestCase
+
+from config import ip, api_key
 from Hue import *
 
 class TestLight(TestCase):
