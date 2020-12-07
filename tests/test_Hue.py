@@ -9,6 +9,10 @@ class TestHue(TestCase):
         self.hue = Hue(ip=ip, api_key=api_key)
 
     # requests
+    def test_get_groups(self):
+        res = self.hue.get(self.hue.groups_url + '/', '')
+        print(res)
+
     # groups
     def test_get_all_groups(self):
         groups = self.hue.getAllGroups()
