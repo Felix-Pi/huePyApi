@@ -34,21 +34,21 @@ class Hue:
         self.validate_request(req)
         return req.json()
 
-    def get(self, url_suffix, query):
+    def get(self, url_suffix):
         url = self.api_url + '/' + url_suffix
         #print('get: ', url, query)
-        req = requests.get(url, query)
+        req = requests.get(url)
 
         self.validate_request(req)
         return req.json()
 
     # groups
     def getAllGroups(self):
-        groups = self.get(self.groups_url, '')
+        groups = self.get(self.groups_url)
         return [self.parseGroup(group_id, groups[group_id]) for group_id in groups]
 
     def getGroup(self, group_id):
-        group = self.get(self.groups_url + '/' + str(group_id), '')
+        group = self.get(self.groups_url + '/' + str(group_id))
         return self.parseGroup(group_id, group)
 
     def parseGroup(self, group_id, group):
@@ -80,11 +80,11 @@ class Hue:
         return Light(self, light_id, name, on, bri, ct, alert)
 
     def getAllLights(self):
-        lights = self.get(self.lights_url, '')
+        lights = self.get(self.lights_url)
         return [self.parseLight(light_id, lights[light_id]) for light_id in lights]
 
     def getLight(self, light_id):
-        light = self.get(self.lights_url + '/' + str(light_id), '')
+        light = self.get(self.lights_url + '/' + str(light_id))
         return self.parseLight(light_id, light)
 
     # scenes
@@ -104,11 +104,11 @@ class Hue:
         return Scene(self, scene_id, name, group, lights, lightstates)
 
     def getAllScenes(self):
-        scenes = self.get(self.scenes_url, '')
+        scenes = self.get(self.scenes_url)
         return [self.parseScene(scene_id, scenes[scene_id]) for scene_id in scenes]
 
     def getScene(self, scene_id):
-        scene = self.get(self.scenes_url + '/' + str(scene_id), '')
+        scene = self.get(self.scenes_url + '/' + str(scene_id))
         return self.parseScene(scene_id, scene)
 
     def getScenesForGroup(self, group):
@@ -130,9 +130,9 @@ class Hue:
         return Resourcelink(self, rl_id, classid, description, name, links)
 
     def getAllResourcelinks(self):
-        resourcelinks = self.get(self.resourcelink_url, '')
+        resourcelinks = self.get(self.resourcelink_url)
         return [self.parseResourcelink(rl_id, resourcelinks[rl_id]) for rl_id in resourcelinks]
 
     def getResourcelink(self, rl_id):
-        resourcelink = self.get(self.resourcelink_url + '/' + str(rl_id), '')
+        resourcelink = self.get(self.resourcelink_url + '/' + str(rl_id))
         return self.parseResourcelink(rl_id, resourcelink)
