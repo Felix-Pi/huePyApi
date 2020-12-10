@@ -1,7 +1,11 @@
 from huePyApi.Group import Group
 from huePyApi.Light import Light
 from huePyApi.Scene import Scene
+from huePyApi.Sensor import *
 from huePyApi.Resourcelink import Resourcelink
+
+from huePyApi.enums.Sensor_model import Sensor_model
+from huePyApi.enums.Sensor_type import Sensor_type
 
 import requests
 
@@ -15,6 +19,7 @@ class Hue:
         self.lights_url = 'lights'
         self.scenes_url = 'scenes'
         self.resourcelink_url = 'resourcelinks'
+        self.sensors_url = 'sensors'
 
     # requests
     def validate_request(self, req):
@@ -28,7 +33,7 @@ class Hue:
 
     def put(self, url_suffix, query):
         url = self.api_url + '/' + url_suffix
-        #print('put:', url, query)
+        # print('put:', url, query)
         req = requests.put(url, data=query)
 
         self.validate_request(req)
@@ -36,7 +41,7 @@ class Hue:
 
     def get(self, url_suffix):
         url = self.api_url + '/' + url_suffix
-        #print('get: ', url, query)
+        # print('get: ', url, query)
         req = requests.get(url)
 
         self.validate_request(req)
@@ -66,7 +71,7 @@ class Hue:
 
     # lights
     def parseLight(self, light_id, light):
-       #print('parseLight:', light)
+        # print('parseLight:', light)
         name = light['name']
         on = light['state']['on']
         bri = None
@@ -89,7 +94,7 @@ class Hue:
 
     # scenes
     def parseScene(self, scene_id, scene):
-        #print('parseScene:', scene)
+        # print('parseScene:', scene)
         name = scene['name']
 
         group = None
@@ -118,7 +123,7 @@ class Hue:
 
     # resourcelinks
     def parseResourcelink(self, rl_id, resourcelink):
-        #print('parseResourcelink:', resourcelink)
+        # print('parseResourcelink:', resourcelink)
         classid = resourcelink['classid']
         description = resourcelink['description']
         name = resourcelink['name']
@@ -136,3 +141,46 @@ class Hue:
     def getResourcelink(self, rl_id):
         resourcelink = self.get(self.resourcelink_url + '/' + str(rl_id))
         return self.parseResourcelink(rl_id, resourcelink)
+
+    # sensors
+    def parseSensor(self, sensor_id, sensor):
+        # print('parseSensor:', sensor)
+        name = sensor['name']
+        sensor_type = sensor['type']
+        modelid = sensor['modelid']
+        lastupdated = sensor['state']['lastupdated']
+
+        if modelid == Sensor_model.HUE_MOTION_SENSOR.value:
+
+            if sensor_type == Sensor_type.HUE_MOTION_SENSOR_LIGHT_LEVEL.value:
+                lightlevel = sensor['state']['lightlevel']
+                dark = sensor['state']['dark']
+                daylight = sensor['state']['daylight']
+                return LightLevelSensor(self, sensor_id, name, sensor_type, modelid, lastupdated, lightlevel, dark,
+                                        daylight)
+
+            if sensor_type == Sensor_type.HUE_MOTION_SENSOR_PRESENCE.value:
+                presence = sensor['state']['presence']
+                return PresenceSensor(self, sensor_id, name, sensor_type, modelid, lastupdated, presence)
+
+            if sensor_type == Sensor_type.HUE_MOTION_SENSOR_TEMPERATURE.value:
+                temperature = sensor['state']['temperature']
+                return TemperatureSensor(self, sensor_id, name, sensor_type, modelid, lastupdated, temperature)
+
+        return Sensor(self, sensor_id, name, sensor_type, modelid, lastupdated)
+
+    def getAllSensors(self):
+        sensors = self.get(self.sensors_url)
+        return [self.parseSensor(sensor_id, sensors[sensor_id]) for sensor_id in sensors]
+
+    def getSensorsForModelid(self, modelid):
+        if not isinstance(modelid, Sensor_model):
+            raise TypeError('modelid must be an instance of Sensor_model Enum')
+
+        sensors = self.getAllSensors()
+
+        return [sensor for sensor in sensors if sensor.modelid is not None and sensor.modelid == modelid.value]
+
+    def getSensor(self, sensor_id):
+        sensor = self.get(self.sensors_url + '/' + str(sensor_id))
+        return self.parseSensor(sensor_id, sensor)

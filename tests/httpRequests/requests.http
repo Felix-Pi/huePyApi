@@ -1,0 +1,57 @@
+### generaö
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7J/lights
+Accept: application/json
+
+
+### Lights
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/lights
+Accept: application/json
+
+###
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/lights/26
+Accept: application/json
+
+### Groups
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/groups
+Accept: application/json
+
+###
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/groups/1
+Accept: application/json
+
+###
+PUT http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/groups/1/action
+Content-Type: application/json
+
+{"bri": 255}
+
+###
+PUT http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/groups/1/action
+Content-Type: application/json
+
+{"ct": 200}
+
+### Scenes
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/scenes
+Accept: application/json
+
+###
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/scenes/7FQzspPLCTwjAsL
+Accept: application/json
+
+### Sensors
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/sensors
+Accept: application/json
+
+### rules
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/rules
+Accept: application/json
+
+### resourcelinks
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/resourcelinks
+Accept: application/json
+
+###
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/resourcelinks/1063
+Accept: application/json
+00:17:88:01:06:f6:42:69-02-0406

@@ -9,9 +9,6 @@ class TestHue(TestCase):
         self.hue = Hue(ip=ip, api_key=api_key)
 
     # requests
-    def test_get_groups(self):
-        res = self.hue.get(self.hue.groups_url + '/', '')
-        print(res)
 
     # groups
     def test_get_all_groups(self):
@@ -58,3 +55,23 @@ class TestHue(TestCase):
     def test_get_resourcelink(self):
         scene = self.hue.getResourcelink(5287)
         print(scene)
+
+    # sensors
+    def test_get_all_sensors(self):
+        sensors = self.hue.getAllSensors()
+        print(len(sensors), sensors)
+
+        for sensor in sensors:
+            print(sensor)
+            # print(sensor.name, '-', sensor.modelid)
+
+    def test_get_sensors_for_modelid(self):
+        sensors = self.hue.getSensorsForModelid(Sensor_model.HUE_MOTION_SENSOR)
+
+        for sensor in sensors:
+            print(sensor)
+            # print(sensor.name, '-', sensor.modelid)
+
+    def test_get_sensor(self):
+        sensor = self.hue.getSensor(86)
+        print(sensor)

@@ -2,7 +2,7 @@
 > Python module for controlling Philips Hue lights, groups, scenes and sensors by using the Hue rest API
 
 ### Installation
- `pip install git+https://github.com/Felix-Pi/huePyApi`
+ `python3 -m pip install git+https://github.com/Felix-Pi/huePyApi`
 
 ## Configuration
 
