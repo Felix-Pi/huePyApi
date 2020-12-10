@@ -38,6 +38,20 @@ class Sensor:
         return bool(self.config['on'])
 
 
+class DimmerSwitch(Sensor):
+    def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config):
+        Sensor.__init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config)
+
+    def __repr__(self):
+        return Sensor.__repr__(self)
+
+    def get_battery(self):
+        return int(self.config['battery'])
+
+    def is_reachable(self):
+        return bool(self.config['reachable'])
+
+
 class HueMotionSensor(Sensor):
     def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config):
         Sensor.__init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config)
@@ -125,18 +139,21 @@ class Geofence(Sensor):
         return Sensor.__repr__(self)[:-1] + ', presence={})'.format(self.presence)
 
     def get_presence(self):
-        return self.presence
+        return bool(self.presence)
 
-
-class DimmerSwitch(Sensor):
-    def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config):
+class DaylightSensor(Sensor):
+    def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config, daylight):
         Sensor.__init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config)
+        self.daylight = bool(daylight)
 
     def __repr__(self):
-        return Sensor.__repr__(self)
+        return Sensor.__repr__(self)[:-1] + ', daylight={})'.format(self.daylight)
 
-    def get_battery(self):
-        return int(self.config['battery'])
+    def get_daylight(self):
+        return bool(self.daylight)
 
-    def is_reachable(self):
-        return bool(self.config['reachable'])
+    def get_sunriseoffset(self):
+        return self.config['sunriseoffset']
+
+    def get_sunsetoffset(self):
+        return self.config['sunsetoffset']

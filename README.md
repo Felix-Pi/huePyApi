@@ -88,10 +88,35 @@ resourcelink.get_linked_groups()       # returns linked groups
 ### Sensors
 ```python
 sensors = hue.get_all_sensors()         # returns all sensors
-sonsor = hue.get_sensor(<str>)          # returns sensor with id sensor_id
+sensor = hue.get_sensor(<str>)          # returns sensor with id sensor_id
 
+# sensor methods
+sensor_id = sensor.get_sensor_id()
+sensor_name = sensor.get_name()
+sensor_type= sensor.get_sensor_type()
+modelid = sensor.get_modelid()
+lastupdated = sensor.get_lastupdated()
+config_on = sensor.get_config_on()
+
+# get sensors from model id
 sensors = hue.get_sensors_for_modelid(<SensorModel>) # sensor models (SensorModel.HUE_DIMMER_SWITCH|SensorModel.HUE_MOTION_SENSOR|SensorModel.HUE_GEOFENCE)
+
+# hue dimmer switch
 hue_dimmer_switch = hue.get_sensors_for_modelid(SensorModel.HUE_DIMMER_SWITCH)
+battery = hue_dimmer_switch.get_battery()
+is_reachable = hue_dimmer_switch.is_reachable()
+
+#hue motion sensor
+hue_motion_sensor = hue.get_sensors_for_modelid(SensorModel.HUE_MOTION_SENSOR)[0]
+#ToDo: sub sensors
+
+
+#hue daylight sensor
+hue_daylight_sensor = hue.get_sensors_for_modelid(SensorModel.HUE_DAYLIGHT_SENSOR)[0]
+
+#hue geofence
+hue_geofence = hue.get_sensors_for_modelid(SensorModel.HUE_GEOFENCE)[0]
+presence = hue_geofence.get_presence()
 ```
 
 ## Credits

@@ -179,6 +179,11 @@ class Hue:
             presence = sensor['state']['presence']
             return Geofence(self, sensor_id, name, sensor_type, modelid, lastupdated, config, presence)
 
+        # HUE_GEOFENCE
+        if modelid == SensorModel.HUE_DAYLIGHT_SENSOR.value:
+            daylight = sensor['state']['daylight']
+            return DaylightSensor(self, sensor_id, name, sensor_type, modelid, lastupdated, config, daylight)
+
         return Sensor(self, sensor_id, name, sensor_type, modelid, lastupdated, config)
 
     def get_all_sensors(self):

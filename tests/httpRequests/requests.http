@@ -40,7 +40,7 @@ GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/scenes/7FQ
 Accept: application/json
 
 
-### resourcelinks
+### Resourcelinks
 GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/resourcelinks
 Accept: application/json
 
@@ -54,6 +54,6 @@ Accept: application/json
 GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/sensors
 Accept: application/json
 
-### rules
+### Rules
 GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/rules
 Accept: application/json
