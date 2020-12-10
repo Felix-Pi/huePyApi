@@ -11,44 +11,44 @@ class TestGroup(TestCase):
         self.hue = Hue(ip=ip, api_key=api_key)
 
     def test_group_set_on(self):
-        group = self.hue.getGroup(1)
-        group.setOn(True)
+        group = self.hue.get_group(1)
+        group.set_on(True)
 
     def test_group_set_bri(self):
-        group = self.hue.getGroup(1)
+        group = self.hue.get_group(1)
 
         with self.assertRaises(Exception) as context:
-            group.setBri(int(Bri.MAX.value + 1))
+            group.set_bri(int(Bri.MAX.value + 1))
 
         print(context.exception)
         self.assertTrue(isinstance(context.exception, ValueError))
 
-        group.setBri(Bri.MAX.value)
+        group.set_bri(Bri.MAX.value)
 
     def test_group_set_ct(self):
-        group = self.hue.getGroup(1)
+        group = self.hue.get_group(1)
 
         with self.assertRaises(Exception) as context:
-            group.setCt(int(Ct.MAX.value + 1))
+            group.set_ct(int(Ct.MAX.value + 1))
 
         self.assertTrue(isinstance(context.exception, ValueError))
 
-        group.setCt(200)
+        group.set_ct(200)
 
     def test_group_set_alert(self):
-        group = self.hue.getGroup(1)
-        group.setAlert(Alert.SELECT)
+        group = self.hue.get_group(1)
+        group.set_alert(Alert.SELECT)
 
     def test_group_set_alert_wrong_parameter(self):
-        group = self.hue.getGroup(1)
+        group = self.hue.get_group(1)
 
         with self.assertRaises(Exception) as context:
-            group.setAlert('select')
+            group.set_alert('select')
 
         self.assertTrue(isinstance(context.exception, TypeError))
 
     def test_group_set_scene(self):
-        group = self.hue.getGroup(1)
-        scenes = self.hue.getScenesForGroup(group)
+        group = self.hue.get_group(1)
+        scenes = self.hue.get_scenes_for_group(group)
 
-        group.setScene(scenes[1])
+        group.set_scene(scenes[1])

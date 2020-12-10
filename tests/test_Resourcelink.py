@@ -13,21 +13,21 @@ class TestResourcelink(TestCase):
                                                self.dummy_links)
 
     def test_get_linked_scenes(self):
-        scenes = self.dummy_resourcelink.getLinkedScenes()
+        scenes = self.dummy_resourcelink.get_linked_scenes()
         print(scenes)
         assert scenes[0] == '7FQzspPLCTwjAsL'
 
     def test_get_linked_rules(self):
-        rules = self.dummy_resourcelink.getLinkedRules()
+        rules = self.dummy_resourcelink.get_linked_rules()
         print(rules)
         assert rules[0] == '4'
 
     def test_get_linked_sensors(self):
-        sensors = self.dummy_resourcelink.getLinkedSensors()
+        sensors = self.dummy_resourcelink.get_linked_sensors()
         print(sensors)
         assert sensors[0] == '66'
 
     def test_get_linked_groups(self):
-        groups = self.dummy_resourcelink.getLinkedGroups()
+        groups = self.dummy_resourcelink.get_linked_groups()
         print(groups)
         assert groups[0] == '1'

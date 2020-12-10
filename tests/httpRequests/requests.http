@@ -39,13 +39,6 @@ Accept: application/json
 GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/scenes/7FQzspPLCTwjAsL
 Accept: application/json
 
-### Sensors
-GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/sensors
-Accept: application/json
-
-### rules
-GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/rules
-Accept: application/json
 
 ### resourcelinks
 GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/resourcelinks
@@ -55,3 +48,12 @@ Accept: application/json
 GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/resourcelinks/1063
 Accept: application/json
 00:17:88:01:06:f6:42:69-02-0406
+
+
+### Sensors
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/sensors
+Accept: application/json
+
+### rules
+GET http://192.168.1.100/api/FUeL6VtpizBrSy-OxS-NtdjkxRbxzHwSnCe6O7Jt/rules
+Accept: application/json

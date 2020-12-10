@@ -20,18 +20,18 @@ class Resourcelink:
                                                                                            self.name,
                                                                                            self.links)
 
-    def parseLinkPattern(self, pattern):
+    def parse_link_pattern(self, pattern):
         return [pattern.match(link).groups()[0] for link in self.links if pattern.match(link) is not None]
 
-    def getLinkedScenes(self):
-        scenes = self.parseLinkPattern(re.compile('/scenes/(.{15})'))
+    def get_linked_scenes(self):
+        scenes = self.parse_link_pattern(re.compile('/scenes/(.{15})'))
         return scenes
 
-    def getLinkedRules(self):
-        return self.parseLinkPattern(re.compile('/rules/(\w*)'))
+    def get_linked_rules(self):
+        return self.parse_link_pattern(re.compile('/rules/(\w*)'))
 
-    def getLinkedSensors(self):
-        return self.parseLinkPattern(re.compile('/sensors/(\w*)'))
+    def get_linked_sensors(self):
+        return self.parse_link_pattern(re.compile('/sensors/(\w*)'))
 
-    def getLinkedGroups(self):
-        return self.parseLinkPattern(re.compile('/groups/(\w*)'))
+    def get_linked_groups(self):
+        return self.parse_link_pattern(re.compile('/groups/(\w*)'))
