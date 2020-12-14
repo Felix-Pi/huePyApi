@@ -1,7 +1,17 @@
-# currently used to get nformation (especially scenes) from Hue Dimmer Switch
-# "classid": 10013 --> Hue Dimmer Switch
-
 import re
+
+
+def parse_resourcelink(hue, rl_id, resourcelink):
+    # print('parseResourcelink:', resourcelink)
+    classid = resourcelink['classid']
+    description = resourcelink['description']
+    name = resourcelink['name']
+
+    links = None
+    if 'links' in resourcelink:
+        links = resourcelink['links']
+
+    return Resourcelink(hue, rl_id, classid, description, name, links)
 
 
 class Resourcelink:

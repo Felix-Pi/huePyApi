@@ -4,6 +4,20 @@ from huePyApi.enums.Bri import *
 from huePyApi.enums.Ct import *
 
 
+def parse_group(hue, group_id, group):
+    name = group['name']
+    lights = group['lights']
+    on = group['action']['on']
+    bri = group['action']['bri']
+    ct = None
+    if 'ct' in group['action']:
+        ct = group['action']['ct']
+
+    alert = group['action']['alert']
+
+    return Group(hue, group_id, name, lights, on, bri, ct, alert)
+
+
 class Group:
     def __init__(self, hue, group_id, name, lights, on, bri, ct, alert):
         self.hue = hue

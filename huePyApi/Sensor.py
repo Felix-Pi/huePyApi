@@ -1,4 +1,50 @@
-# ToDo: read temperature from motion sensor
+from huePyApi.enums.SensorModel import SensorModel
+from huePyApi.enums.SensorType import SensorType
+
+
+def parse_sensor(hue, sensor_id, sensor):
+    # print('parseSensor:', sensor)
+    name = sensor['name']
+    sensor_type = sensor['type']
+    modelid = sensor['modelid']
+    lastupdated = sensor['state']['lastupdated']
+    config = sensor['config']
+
+    # HUE_MOTION_SENSOR
+    if modelid == SensorModel.HUE_MOTION_SENSOR.value:
+
+        if sensor_type == SensorType.HUE_MOTION_SENSOR_LIGHT_LEVEL.value:
+            lightlevel = sensor['state']['lightlevel']
+            dark = sensor['state']['dark']
+            daylight = sensor['state']['daylight']
+            return LightLevelSensor(hue, sensor_id, name, sensor_type, modelid, lastupdated, config, lightlevel,
+                                    dark,
+                                    daylight)
+
+        if sensor_type == SensorType.HUE_MOTION_SENSOR_PRESENCE.value:
+            presence = sensor['state']['presence']
+            return PresenceSensor(hue, sensor_id, name, sensor_type, modelid, lastupdated, config, presence)
+
+        if sensor_type == SensorType.HUE_MOTION_SENSOR_TEMPERATURE.value:
+            temperature = sensor['state']['temperature']
+            return TemperatureSensor(hue, sensor_id, name, sensor_type, modelid, lastupdated, config, temperature)
+
+    # HUE_DIMMER_SWITCH
+    if modelid == SensorModel.HUE_DIMMER_SWITCH.value:
+        return DimmerSwitch(hue, sensor_id, name, sensor_type, modelid, lastupdated, config)
+
+    # HUE_GEOFENCE
+    if modelid == SensorModel.HUE_GEOFENCE.value:
+        presence = sensor['state']['presence']
+        return Geofence(hue, sensor_id, name, sensor_type, modelid, lastupdated, config, presence)
+
+    # HUE_GEOFENCE
+    if modelid == SensorModel.HUE_DAYLIGHT_SENSOR.value:
+        daylight = sensor['state']['daylight']
+        return DaylightSensor(hue, sensor_id, name, sensor_type, modelid, lastupdated, config, daylight)
+
+    return Sensor(hue, sensor_id, name, sensor_type, modelid, lastupdated, config)
+
 
 class Sensor:
     def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config):
@@ -140,6 +186,7 @@ class Geofence(Sensor):
 
     def get_presence(self):
         return bool(self.presence)
+
 
 class DaylightSensor(Sensor):
     def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config, daylight):

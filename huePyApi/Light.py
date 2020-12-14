@@ -4,6 +4,21 @@ from huePyApi.enums.Bri import *
 from huePyApi.enums.Ct import *
 
 
+def parse_light(hue, light_id, light):
+    # print('parseLight:', light)
+    name = light['name']
+    on = light['state']['on']
+    bri = None
+    if 'bri' in light['state']:
+        bri = light['state']['bri']
+    ct = None
+    if 'ct' in light['state']:
+        ct = light['state']['ct']
+    alert = light['state']['alert']
+
+    return Light(hue, light_id, name, on, bri, ct, alert)
+
+
 class Light:
     def __init__(self, hue, light_id, name, on, bri, ct, alert):
         self.hue = hue

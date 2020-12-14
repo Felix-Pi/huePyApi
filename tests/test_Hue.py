@@ -75,3 +75,6 @@ class TestHue(TestCase):
         print(sensor.config)
         print(sensor.get_battery())
         print(sensor)
+
+    def test_test_extern_method(self):
+        self.hue.test_extern_method()
