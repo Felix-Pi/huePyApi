@@ -117,6 +117,13 @@ hue_daylight_sensor = hue.get_sensors_for_modelid(SensorModel.HUE_DAYLIGHT_SENSO
 #hue geofence
 hue_geofence = hue.get_sensors_for_modelid(SensorModel.HUE_GEOFENCE)[0]
 presence = hue_geofence.get_presence()
+
+
+#hue temparature sensor
+temperature_sensor = self.hue.get_sensor(<sensor_id>)
+temperature = temperature_sensor.get_temperature()              # returns temperature. format: xxxx
+temperature = temperature_sensor.get_temperature_in_celsius()   # returns temperature in format: xx.xx
+temperature = temperature_sensor.get_temperature_formatted()    # returns temparature in string with unit. format: xx.xx °C
 ```
 
 ## Credits

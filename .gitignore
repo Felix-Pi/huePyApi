@@ -1,3 +1,5 @@
 venv/
 .idea/
 config.py
+tests/httpRequests/*
+/tests/httpRequests/

@@ -175,6 +175,12 @@ class TemperatureSensor(HueMotionSensor):
     def get_temperature(self):
         return self.temperature
 
+    def get_temperature_in_celsius(self):
+        return self.temperature / 100
+
+    def get_temperature_formatted(self):
+        return '{} °C'.format(self.temperature / 100)
+
 
 class Geofence(Sensor):
     def __init__(self, hue, sensor_id, name, sensor_type, modelid, lastupdated, config, presence):
