@@ -12,11 +12,33 @@ class Hue:
         self.ip = ip
         self.api_key = api_key
         self.api_url = 'http://' + self.ip + '/api/' + self.api_key
+        self.test_bridge_connection()
+
         self.groups_url = 'groups'
         self.lights_url = 'lights'
         self.scenes_url = 'scenes'
         self.resourcelink_url = 'resourcelinks'
         self.sensors_url = 'sensors'
+
+    def test_bridge_connection(self):
+        try:
+            req = requests.get("http://" + self.ip, timeout=2)
+            print(req)
+        except Exception:
+            print("Could not connect to bridge with ip " + self.ip)
+            self.auto_discover_ip()
+
+    def auto_discover_ip(self):
+        discovery_url = 'https://discovery.meethue.com'
+        print("Try to find bridge ip via " + discovery_url)
+        req = requests.get(discovery_url)
+        req_json = req.json()
+
+        try:
+            self.ip = req_json[0]['internalipaddress']
+            print("Discovered bridge ip address: " + self.ip)
+        except Exception:
+            raise Exception("Connection error!")
 
     # requests
     def validate_request(self, req):

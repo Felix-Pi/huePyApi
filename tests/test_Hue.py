@@ -8,8 +8,6 @@ class TestHue(TestCase):
     def setUp(self):
         self.hue = Hue(ip=ip, api_key=api_key)
 
-    # requests
-
     # groups
     def test_get_all_groups(self):
         groups = self.hue.get_all_groups()
