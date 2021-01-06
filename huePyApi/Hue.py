@@ -10,9 +10,10 @@ import requests
 class Hue:
     def __init__(self, ip, api_key):
         self.ip = ip
+        self.test_bridge_connection()
+
         self.api_key = api_key
         self.api_url = 'http://' + self.ip + '/api/' + self.api_key
-        self.test_bridge_connection()
 
         self.groups_url = 'groups'
         self.lights_url = 'lights'
